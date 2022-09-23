@@ -1,0 +1,24 @@
+{
+  "name": "defi-utils",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Mauricio Hernan Cabrera <mauriciohernancabrera@gmail.com>",
+  "types": "dist/index.d.ts",
+  "main": "dist",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "keywords": [
+    "defi-utils",
+    "blockchain-utils"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bignumber.js": "^9.1.0",
+    "lodash": "^4.17.21",
+    "typescript": "^4.4.4"
+  }
+}
