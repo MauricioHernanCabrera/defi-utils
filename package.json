@@ -8,6 +8,10 @@
   "files": [
     "/dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MauricioHernanCabrera/defi-utils.git"
+  },
   "scripts": {
     "build": "tsc --build"
   },
