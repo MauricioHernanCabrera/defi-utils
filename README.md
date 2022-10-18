@@ -59,7 +59,7 @@ console.log({ value, result }) // { value: 6, result: '6000000' }
 
 
 
-**bigNumberTofullDecimals:**
+**bigNumberToFullDecimals:**
 <br>
 Method to transform a big number to full decimal number
 
@@ -73,7 +73,7 @@ const TOKEN_USDC = {
 const value = 600000
 
 const result = new DefiUtils(value)
-  .bigNumberTofullDecimals(TOKEN_USDC.decimals)
+  .bigNumberToFullDecimals(TOKEN_USDC.decimals)
   .toString();
 
 console.log({ value, result }) // { value: 600000, result: '6' }
