@@ -1,7 +1,8 @@
 import BigNumber from "bignumber.js";
 
 class DefiUtils extends BigNumber {
-  WAD_BASIC_UNIT = new BigNumber(1e18);
+  static WAD = new BigNumber(1e18).toString();
+  static WAD_WAD = new BigNumber(1e36).toString();
 
   constructor(n: BigNumber.Value, base?: number) {
     super(n, base);
@@ -17,19 +18,17 @@ class DefiUtils extends BigNumber {
 
   tokensToUnderlyingAmount = (exchangeRate: BigNumber.Value): DefiUtils => {
     return new DefiUtils(
-      new BigNumber(exchangeRate)
-        .multipliedBy(this)
-        .dividedBy(this.WAD_BASIC_UNIT)
+      new BigNumber(exchangeRate).multipliedBy(this).dividedBy(DefiUtils.WAD)
     );
   };
 
   underlyingAmountToTokens = (exchangeRate: BigNumber.Value): DefiUtils => {
     return new DefiUtils(
       new BigNumber(this)
-        .multipliedBy(this.WAD_BASIC_UNIT)
-        .multipliedBy(this.WAD_BASIC_UNIT)
+        .multipliedBy(DefiUtils.WAD)
+        .multipliedBy(DefiUtils.WAD)
         .dividedBy(exchangeRate)
-        .dividedBy(this.WAD_BASIC_UNIT)
+        .dividedBy(DefiUtils.WAD)
     );
   };
 
