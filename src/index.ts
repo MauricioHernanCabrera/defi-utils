@@ -35,6 +35,14 @@ class DefiUtils extends BigNumber {
   valueToUSD = (priceUSD: BigNumber.Value): DefiUtils => {
     return new DefiUtils(new BigNumber(this).multipliedBy(priceUSD));
   };
+
+  aprToApy = (apr: BigNumber.Value) => {
+    const calc1 = new BigNumber(apr).dividedBy(365);
+    const calc2 = new BigNumber(1).plus(calc1);
+    const calc3 = new BigNumber(calc2).pow(365);
+
+    return new DefiUtils(calc3.minus(1));
+  };
 }
 
 export default DefiUtils;
