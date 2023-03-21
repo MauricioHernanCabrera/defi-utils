@@ -8,6 +8,30 @@ class DefiUtils extends BigNumber {
     super(n, base);
   }
 
+  plus = (n: BigNumber.Value, base?: number | undefined) => {
+    return new DefiUtils(super.plus(n, base));
+  };
+
+  minus = (n: BigNumber.Value, base?: number | undefined) => {
+    return new DefiUtils(super.minus(n, base));
+  };
+
+  pow = (n: BigNumber.Value, m?: BigNumber.Value) => {
+    return new DefiUtils(super.pow(n, m));
+  };
+
+  div = (n: BigNumber.Value, base?: number) => {
+    return new DefiUtils(super.div(n, base));
+  };
+
+  dividedBy = (n: BigNumber.Value, base?: number) => {
+    return new DefiUtils(super.dividedBy(n, base));
+  };
+
+  multipliedBy = (n: BigNumber.Value, base?: number) => {
+    return new DefiUtils(super.multipliedBy(n, base));
+  };
+
   fullDecimalsToBigNumber = (decimals: BigNumber.Value): DefiUtils => {
     return new DefiUtils(this.multipliedBy(`1e${decimals}`));
   };
