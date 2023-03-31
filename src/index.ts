@@ -67,6 +67,13 @@ class DefiUtils extends BigNumber {
 
     return new DefiUtils(calc3.minus(1));
   };
+
+  withoutScientificNotation = () => {
+    return new BigNumber(this).toFixed(
+      new BigNumber(this).decimalPlaces(),
+      BigNumber.ROUND_DOWN
+    );
+  };
 }
 
 export default DefiUtils;
