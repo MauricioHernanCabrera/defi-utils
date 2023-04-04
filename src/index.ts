@@ -74,6 +74,18 @@ class DefiUtils extends BigNumber {
       BigNumber.ROUND_DOWN
     );
   };
+
+  toSafeFixed = (
+    decimalPlaces: number,
+    roundingMode?: BigNumber.RoundingMode | undefined
+  ) => {
+    const value = this.toFixed(decimalPlaces, roundingMode);
+
+    return new BigNumber(value).toFixed(
+      new BigNumber(value).decimalPlaces(),
+      roundingMode
+    );
+  };
 }
 
 export default DefiUtils;
