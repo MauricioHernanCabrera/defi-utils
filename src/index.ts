@@ -3,6 +3,7 @@ import BigNumber from "bignumber.js";
 class DefiUtils extends BigNumber {
   static WAD = new BigNumber(1e18).toString();
   static WAD_WAD = new BigNumber(1e36).toString();
+  static SECONDS_PER_DAY = new BigNumber(86400).toString();
 
   constructor(n: BigNumber.Value, base?: number) {
     super(n, base);
