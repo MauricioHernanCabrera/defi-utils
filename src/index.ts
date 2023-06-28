@@ -1,35 +1,45 @@
 import BigNumber from "bignumber.js";
 
-class DefiUtils extends BigNumber {
-  static WAD = new BigNumber(1e18).toString();
-  static WAD_WAD = new BigNumber(1e36).toString();
-  static SECONDS_PER_DAY = new BigNumber(86400).toString();
+export namespace DefiUtils {
+  export interface Config extends BigNumber.Config {}
+  export interface Format extends BigNumber.Format {}
+  export interface Instance extends BigNumber.Instance {}
+  export type Constructor = BigNumber.Constructor;
+  export type ModuloMode = BigNumber.ModuloMode;
+  export type RoundingMode = BigNumber.RoundingMode;
+  export type Value = BigNumber.Value;
+}
 
-  constructor(n: BigNumber.Value, base?: number) {
+export class DefiUtils extends BigNumber {
+  static WAD = new DefiUtils(1e18).toString();
+  static WAD_WAD = new DefiUtils(1e36).toString();
+  static SECONDS_PER_DAY = new DefiUtils(86400).toString();
+
+  constructor(n: DefiUtils.Value, base?: number) {
     super(n, base);
   }
 
-  override plus = (n: BigNumber.Value, base?: number | undefined) => {
+  override plus = (n: DefiUtils.Value, base?: number | undefined) => {
     return new DefiUtils(super.plus(n, base));
   };
 
-  override minus = (n: BigNumber.Value, base?: number | undefined) => {
+  override minus = (n: DefiUtils.Value, base?: number | undefined) => {
     return new DefiUtils(super.minus(n, base));
   };
 
-  override pow = (n: BigNumber.Value, m?: BigNumber.Value) => {
+  override pow = (n: DefiUtils.Value, m?: DefiUtils.Value) => {
     return new DefiUtils(super.pow(n, m));
   };
 
-  override div = (n: BigNumber.Value, base?: number) => {
+  override div = (n: DefiUtils.Value, base?: number) => {
     return new DefiUtils(super.div(n, base));
   };
 
-  override dividedBy = (n: BigNumber.Value, base?: number) => {
+  override dividedBy = (n: DefiUtils.Value, base?: number) => {
     return new DefiUtils(super.dividedBy(n, base));
   };
 
-  override multipliedBy = (n: BigNumber.Value, base?: number) => {
+  override multipliedBy = (n: DefiUtils.Value, base?: number) => {
     return new DefiUtils(super.multipliedBy(n, base));
   };
 
@@ -39,7 +49,7 @@ class DefiUtils extends BigNumber {
    * @param decimals
    * @returns DefiUtils
    */
-  toBasicUnits = (decimals: BigNumber.Value): DefiUtils => {
+  toBasicUnits = (decimals: DefiUtils.Value): DefiUtils => {
     return new DefiUtils(this.multipliedBy(`1e${decimals}`));
   };
 
@@ -49,7 +59,7 @@ class DefiUtils extends BigNumber {
    * @param decimals
    * @returns DefiUtils
    */
-  toFullDecimals = (decimals: BigNumber.Value): DefiUtils => {
+  toFullDecimals = (decimals: DefiUtils.Value): DefiUtils => {
     return new DefiUtils(this.dividedBy(`1e${decimals}`));
   };
 
@@ -59,9 +69,9 @@ class DefiUtils extends BigNumber {
    * @param exchangeRate
    * @returns DefiUtils
    */
-  toUnderlying = (exchangeRate: BigNumber.Value): DefiUtils => {
+  toUnderlying = (exchangeRate: DefiUtils.Value): DefiUtils => {
     return new DefiUtils(
-      new BigNumber(exchangeRate).multipliedBy(this).dividedBy(DefiUtils.WAD)
+      new DefiUtils(exchangeRate).multipliedBy(this).dividedBy(DefiUtils.WAD)
     );
   };
 
@@ -71,9 +81,9 @@ class DefiUtils extends BigNumber {
    * @param exchangeRate
    * @returns DefiUtils
    */
-  toTokens = (exchangeRate: BigNumber.Value): DefiUtils => {
+  toTokens = (exchangeRate: DefiUtils.Value): DefiUtils => {
     return new DefiUtils(
-      new BigNumber(this)
+      new DefiUtils(this)
         .multipliedBy(DefiUtils.WAD)
         .multipliedBy(DefiUtils.WAD)
         .dividedBy(exchangeRate)
@@ -87,8 +97,8 @@ class DefiUtils extends BigNumber {
    * @param priceUSD
    * @returns DefiUtils
    */
-  toUSD = (priceUSD: BigNumber.Value): DefiUtils => {
-    return new DefiUtils(new BigNumber(this).multipliedBy(priceUSD));
+  toUSD = (priceUSD: DefiUtils.Value): DefiUtils => {
+    return new DefiUtils(new DefiUtils(this).multipliedBy(priceUSD));
   };
 
   /**
@@ -97,8 +107,8 @@ class DefiUtils extends BigNumber {
    * @param priceUSD
    * @returns DefiUtils
    */
-  fromUSD = (priceUSD: BigNumber.Value): DefiUtils => {
-    return new DefiUtils(new BigNumber(this).dividedBy(priceUSD));
+  fromUSD = (priceUSD: DefiUtils.Value): DefiUtils => {
+    return new DefiUtils(new DefiUtils(this).dividedBy(priceUSD));
   };
 
   /**
@@ -107,9 +117,9 @@ class DefiUtils extends BigNumber {
    * @returns DefiUtils
    */
   toAPY = (): DefiUtils => {
-    const calc1 = new BigNumber(this).dividedBy(365);
-    const calc2 = new BigNumber(1).plus(calc1);
-    const calc3 = new BigNumber(calc2).pow(365);
+    const calc1 = new DefiUtils(this).dividedBy(365);
+    const calc2 = new DefiUtils(1).plus(calc1);
+    const calc3 = new DefiUtils(calc2).pow(365);
 
     return new DefiUtils(calc3.minus(1));
   };
@@ -120,9 +130,9 @@ class DefiUtils extends BigNumber {
    * @returns string
    */
   removeScientificNotation = () => {
-    return new BigNumber(this).toFixed(
-      new BigNumber(this).decimalPlaces(),
-      BigNumber.ROUND_DOWN
+    return new DefiUtils(this).toFixed(
+      new DefiUtils(this).decimalPlaces(),
+      DefiUtils.ROUND_DOWN
     );
   };
 
@@ -136,12 +146,12 @@ class DefiUtils extends BigNumber {
    */
   toSafeFixed = (
     decimalPlaces: number,
-    roundingMode?: BigNumber.RoundingMode | undefined
+    roundingMode?: DefiUtils.RoundingMode | undefined
   ) => {
     const value = this.toFixed(decimalPlaces, roundingMode);
 
-    return new BigNumber(value).toFixed(
-      new BigNumber(value).decimalPlaces(),
+    return new DefiUtils(value).toFixed(
+      new DefiUtils(value).decimalPlaces(),
       roundingMode
     );
   };
