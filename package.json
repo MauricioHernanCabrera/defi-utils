@@ -1,6 +1,6 @@
 {
   "name": "defi-utils",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "author": "Mauricio Hernan Cabrera <mauriciohernancabrera@gmail.com>",
   "types": "dist/index.d.ts",
