@@ -155,6 +155,17 @@ export class DefiUtils extends BigNumber {
       roundingMode
     );
   };
+
+  /**
+   * Returns a safe string (avoid infinity and nan values)
+   *
+   * @returns string
+   */
+  toSafeString = () => {
+    const value = this.isNaN() || !this.isFinite() ? "0" : this.toString();
+
+    return value;
+  };
 }
 
 export default DefiUtils;
