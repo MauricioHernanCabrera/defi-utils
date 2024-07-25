@@ -166,6 +166,17 @@ export class DefiUtils extends BigNumber {
 
     return value;
   };
+
+  /**
+   * Returns a safe number (avoid infinity and nan values)
+   *
+   * @returns string
+   */
+  toSafeNumber = () => {
+    const value = this.isNaN() || !this.isFinite() ? 0 : this.toNumber();
+
+    return value;
+  };
 }
 
 export default DefiUtils;
