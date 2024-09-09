@@ -179,11 +179,11 @@ export class DefiUtils extends BigNumber {
   };
 
   static override min(...n: DefiUtils.Value[]) {
-    return new DefiUtils(this.min(...n));
+    return new DefiUtils(super.min(...n));
   }
 
   static override max(...n: DefiUtils.Value[]) {
-    return new DefiUtils(this.max(...n));
+    return new DefiUtils(super.max(...n));
   }
 }
 
