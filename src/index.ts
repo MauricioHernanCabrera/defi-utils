@@ -177,6 +177,14 @@ export class DefiUtils extends BigNumber {
 
     return value;
   };
+
+  static override min(...n: DefiUtils.Value[]) {
+    return new DefiUtils(this.min(...n));
+  }
+
+  static override max(...n: DefiUtils.Value[]) {
+    return new DefiUtils(this.max(...n));
+  }
 }
 
 export default DefiUtils;
