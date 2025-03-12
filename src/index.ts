@@ -130,11 +130,12 @@ export class DefiUtils extends BigNumber {
    * @returns DefiUtils
    */
   toAPR = (): DefiUtils => {
-    const calc1 = new DefiUtils(this).plus(1);
-    const calc2 = new DefiUtils(calc1).pow(new DefiUtils(1).dividedBy(365));
-    const calc3 = new DefiUtils(calc2).minus(1).times(365);
+    const onePlusVal = new DefiUtils(this).plus(1);
+    const exponent = new DefiUtils(1).dividedBy(1);
+    const powResult = onePlusVal.pow(exponent);
+    const result = powResult.minus(1).times(1).dividedBy(100);
 
-    return new DefiUtils(calc3);
+    return new DefiUtils(result);
   };
 
   /**
