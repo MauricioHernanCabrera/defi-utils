@@ -125,6 +125,19 @@ export class DefiUtils extends BigNumber {
   };
 
   /**
+   * Convert a apy into apr
+   *
+   * @returns DefiUtils
+   */
+  toAPR = (): DefiUtils => {
+    const calc1 = new DefiUtils(this).plus(1);
+    const calc2 = new DefiUtils(calc1).pow(new DefiUtils(1).dividedBy(365));
+    const calc3 = new DefiUtils(calc2).minus(1).times(365);
+
+    return new DefiUtils(calc3);
+  };
+
+  /**
    * Returns a string representation of the number without scientific notation.
    *
    * @returns string
